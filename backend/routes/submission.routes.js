@@ -94,6 +94,38 @@ router.get("/problem/:problemId", async (req, res) => {
   }
 });
 
+// GET /submissions/metrics/progress
+router.get("/metrics/progress", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const submissions = await Submission.find({ user: userId });
+
+    const progressMap = {};
+
+    submissions.forEach((submission) => {
+      const date = submission.createdAt.toISOString().split("T")[0];
+
+      if (!progressMap[date]) {
+        progressMap[date] = 0;
+      }
+      progressMap[date]++;
+    });
+
+    const progressData = Object.keys(progressMap)
+      .sort()
+      .map((date) => ({
+        date,
+        count: progressMap[date],
+      }));
+
+    res.json(progressData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 
 module.exports = router;
