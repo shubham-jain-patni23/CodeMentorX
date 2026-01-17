@@ -63,5 +63,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /problems/:id  (fetch single problem by ID)
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const problem = await Problem.findById(id);
+
+    if (!problem) {
+      return res.status(404).json({ message: "Problem not found" });
+    }
+
+    res.json(problem);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Invalid problem ID" });
+  }
+});
+
 
 module.exports = router;
