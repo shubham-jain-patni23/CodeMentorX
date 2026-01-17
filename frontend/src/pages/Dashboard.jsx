@@ -101,7 +101,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
       <h2>Dashboard</h2>
 
       <section>
@@ -110,7 +110,7 @@ function Dashboard() {
         {error && <p>{error}</p>}
 
         {progress.length === 0 ? (
-          <p>No submissions yet</p>
+          <p>Start solving problems to see your progress here.</p>
         ) : (
           <ul>
             {progress.map((item) => (
@@ -122,8 +122,10 @@ function Dashboard() {
         )}
       </section>
 
+      <hr />
+
       <section>
-        <h3>Difficulty Breakdown</h3>
+        <h3>Difficulty Distribution</h3>
 
         {!difficulty ? (
           <p>Loading difficulty data...</p>
@@ -136,8 +138,10 @@ function Dashboard() {
         )}
       </section>
 
+      <hr />
+
       <section>
-        <h3>Pattern Exposure</h3>
+        <h3>DSA Patterns Practiced</h3>
 
         {!patterns ? (
           <p>Loading pattern data...</p>
@@ -153,6 +157,8 @@ function Dashboard() {
           </ul>
         )}
       </section>
+
+      <hr />
       
       <section>
         <h3>Attempts per Problem</h3>
@@ -171,7 +177,7 @@ function Dashboard() {
           </ul>
         )}
       </section>
-
+        <hr />
 
     </div>
   );
