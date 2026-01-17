@@ -91,9 +91,9 @@ npm run dev
 
 ## Environment Variables
 ```bash
-MONGO_URI=your_mongo_connection
-JWT_SECRET=your_secret
-GEMINI_API_KEY=your_key
+MONGO_URI=mongo_connection
+JWT_SECRET=secret_token
+GEMINI_API_KEY=my_API_key
 ```
 
 ---
