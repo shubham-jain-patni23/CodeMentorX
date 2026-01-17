@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Problems from "./pages/Problems";
+import ProblemDetail from "./pages/ProblemDetail";
+
 
 
 function App() {
@@ -30,6 +32,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Problems />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/problems/:id"
+          element={
+            <ProtectedRoute>
+              <ProblemDetail />
             </ProtectedRoute>
           }
         />

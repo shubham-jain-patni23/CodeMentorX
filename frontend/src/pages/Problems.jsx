@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 function Problems() {
   const [problems, setProblems] = useState([]);
@@ -40,7 +42,10 @@ function Problems() {
             padding: "10px",
           }}
         >
-          <h3>{problem.title}</h3>
+          <h3>
+            <Link to={`/problems/${problem._id}`}>{problem.title}</Link>
+          </h3>
+
           <p>Difficulty: {problem.difficulty}</p>
           <p>Patterns: {problem.patternTags?.join(", ")}</p>
         </div>
