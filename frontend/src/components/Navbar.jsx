@@ -12,6 +12,8 @@ function Navbar() {
   return (
     <nav style={{ marginBottom: "20px" }}>
       <Link to="/">Home</Link>{" | "}
+      <Link to="/problems">Problems</Link>{" | "}
+
 
       {!token ? (
         <>

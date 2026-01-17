@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Problems from "./pages/Problems";
+
 
 function App() {
   return (
@@ -22,6 +24,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/problems"
+          element={
+            <ProtectedRoute>
+              <Problems />
+            </ProtectedRoute>
+          }
+        />
+
+
       </Routes>
     </BrowserRouter>
   );
