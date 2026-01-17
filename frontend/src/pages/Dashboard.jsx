@@ -14,7 +14,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/submissions/metrics/progress",
+          "https://codementorx-oh8c.onrender.com/submissions/metrics/progress",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/submissions/metrics/difficulty",
+          "https://codementorx-oh8c.onrender.com/submissions/metrics/difficulty",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/submissions/metrics/patterns",
+          "https://codementorx-oh8c.onrender.com/submissions/metrics/patterns",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/submissions/metrics/attempts",
+          "https://codementorx-oh8c.onrender.com/submissions/metrics/attempts",
           {
             headers: {
               Authorization: `Bearer ${token}`,

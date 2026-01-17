@@ -17,7 +17,7 @@ function Interview() {
   const token = localStorage.getItem("token");
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:5000/interview/submit", {
+    const response = await fetch("https://codementorx-oh8c.onrender.com/interview/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

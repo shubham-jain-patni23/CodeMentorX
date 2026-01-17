@@ -11,7 +11,7 @@ function Problems() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/problems", {
+        const response = await fetch("https://codementorx-oh8c.onrender.com/problems", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
