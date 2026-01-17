@@ -54,4 +54,46 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
+// GET /submissions/my  (fetch logged-in user's submissions)
+router.get("/my", authMiddleware, async (req, res) => {
+  try {
+    const submissions = await Submission.find({
+      user: req.user.userId,
+    })
+      .populate("problem", "title difficulty patternTags")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      count: submissions.length,
+      submissions,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// GET /submissions/problem/:problemId
+router.get("/problem/:problemId", async (req, res) => {
+  try {
+    const { problemId } = req.params;
+
+    const submissions = await Submission.find({
+      problem: problemId,
+    })
+      .populate("user", "name email")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      count: submissions.length,
+      submissions,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+
 module.exports = router;
