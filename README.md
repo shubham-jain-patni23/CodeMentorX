@@ -82,7 +82,7 @@ npm install
 node index.js
 ```
 
-### frontend
+### Frontend
 
 cd frontend
 npm install
