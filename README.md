@@ -80,6 +80,7 @@ CodeMentorX is a full-stack platform that helps learners:
 cd backend
 npm install
 node index.js
+```
 
 ### frontend
 
