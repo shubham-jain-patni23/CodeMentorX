@@ -126,6 +126,64 @@ router.get("/metrics/progress", authMiddleware, async (req, res) => {
   }
 });
 
+// GET /submissions/metrics/difficulty
+router.get("/metrics/difficulty", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const submissions = await Submission.find({ user: userId }).populate(
+      "problem",
+      "difficulty"
+    );
+
+    const difficultyCount = {
+      Easy: 0,
+      Medium: 0,
+      Hard: 0,
+    };
+
+    submissions.forEach((submission) => {
+      const difficulty = submission.problem?.difficulty;
+      if (difficulty && difficultyCount[difficulty] !== undefined) {
+        difficultyCount[difficulty]++;
+      }
+    });
+
+    res.json(difficultyCount);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// GET /submissions/metrics/patterns
+router.get("/metrics/patterns", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const submissions = await Submission.find({ user: userId }).populate(
+      "problem",
+      "patternTags"
+    );
+
+    const patternMap = {};
+
+    submissions.forEach((submission) => {
+      const patterns = submission.problem?.patternTags || [];
+      patterns.forEach((pattern) => {
+        if (!patternMap[pattern]) {
+          patternMap[pattern] = 0;
+        }
+        patternMap[pattern]++;
+      });
+    });
+
+    res.json(patternMap);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 
 module.exports = router;
