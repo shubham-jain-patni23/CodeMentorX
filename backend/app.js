@@ -21,6 +21,9 @@ app.use("/problems", problemRoutes);
 const submissionRoutes = require("./routes/submission.routes");
 app.use("/submissions", submissionRoutes);
 
+const interviewRoutes = require("./routes/interview.routes");
+app.use("/interview", interviewRoutes);
+
 
 module.exports = app;
 
