@@ -90,11 +90,11 @@ npm run dev
 ```
 
 ## Environment Variables
-
+```bash
 MONGO_URI=your_mongo_connection
 JWT_SECRET=your_secret
 GEMINI_API_KEY=your_key
-
+```
 
 ---
 
