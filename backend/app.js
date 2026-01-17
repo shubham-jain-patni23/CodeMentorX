@@ -18,6 +18,8 @@ app.use("/profile", profileRoutes);
 const problemRoutes = require("./routes/problem.routes");
 app.use("/problems", problemRoutes);
 
+const submissionRoutes = require("./routes/submission.routes");
+app.use("/submissions", submissionRoutes);
 
 
 module.exports = app;
