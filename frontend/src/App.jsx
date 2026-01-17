@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Problems from "./pages/Problems";
 import ProblemDetail from "./pages/ProblemDetail";
+import Interview from "./pages/Interview";
 
 
 
@@ -41,6 +42,15 @@ function App() {
           element={
             <ProtectedRoute>
               <ProblemDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/interview/:submissionId"
+          element={
+            <ProtectedRoute>
+              <Interview />
             </ProtectedRoute>
           }
         />

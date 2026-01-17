@@ -8,6 +8,8 @@ function ProblemDetail() {
   const [code, setCode] = useState("");
   const [review, setReview] = useState(null);
   const [message, setMessage] = useState("");
+  const [submissionId, setSubmissionId] = useState(null);
+
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -49,8 +51,10 @@ function ProblemDetail() {
 
     if (data.submission) {
       setReview(data.submission.reviewResult);
+      setSubmissionId(data.submission._id);
       setMessage("Code submitted successfully");
-    } else {
+    }
+    else {
       setMessage(data.message || "Submission failed");
     }
   };
@@ -110,6 +114,16 @@ function ProblemDetail() {
           </ul>
         </div>
       )}
+      {submissionId && (
+        <button
+          onClick={() =>
+            window.location.href = `/interview/${submissionId}`
+          }
+        >
+          Enter Interview Mode
+        </button>
+      )}
+
     </div>
   );
 }
