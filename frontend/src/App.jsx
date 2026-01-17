@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Problems from "./pages/Problems";
 import ProblemDetail from "./pages/ProblemDetail";
 import Interview from "./pages/Interview";
+import Dashboard from "./pages/Dashboard";
 
 
 
@@ -51,6 +52,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Interview />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
             </ProtectedRoute>
           }
         />
