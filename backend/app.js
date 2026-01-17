@@ -15,6 +15,10 @@ app.use("/auth", authRoutes);
 const profileRoutes = require("./routes/profile.routes");
 app.use("/profile", profileRoutes);
 
+const problemRoutes = require("./routes/problem.routes");
+app.use("/problems", problemRoutes);
+
+
 
 module.exports = app;
 
