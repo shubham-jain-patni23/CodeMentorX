@@ -78,4 +78,28 @@ router.post("/submit", authMiddleware, async (req, res) => {
   }
 });
 
+// GET /interview/:submissionId  (fetch interview feedback)
+router.get("/:submissionId", authMiddleware, async (req, res) => {
+  try {
+    const { submissionId } = req.params;
+
+    const interviewResponse = await InterviewResponse.findOne({
+      submission: submissionId,
+      user: req.user.userId,
+    }).populate("problem", "title difficulty");
+
+    if (!interviewResponse) {
+      return res
+        .status(404)
+        .json({ message: "Interview feedback not found" });
+    }
+
+    res.json(interviewResponse);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Invalid submission ID" });
+  }
+});
+
+
 module.exports = router;
