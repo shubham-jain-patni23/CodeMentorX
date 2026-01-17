@@ -185,5 +185,40 @@ router.get("/metrics/patterns", authMiddleware, async (req, res) => {
   }
 });
 
+// GET /submissions/metrics/attempts
+router.get("/metrics/attempts", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const submissions = await Submission.find({ user: userId }).populate(
+      "problem",
+      "title"
+    );
+
+    const attemptMap = {};
+
+    submissions.forEach((submission) => {
+      const problemId = submission.problem._id.toString();
+
+      if (!attemptMap[problemId]) {
+        attemptMap[problemId] = {
+          problemId,
+          title: submission.problem.title,
+          attempts: 0,
+        };
+      }
+
+      attemptMap[problemId].attempts++;
+    });
+
+    const result = Object.values(attemptMap);
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 module.exports = router;
