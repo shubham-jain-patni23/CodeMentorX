@@ -3,6 +3,8 @@ const router = express.Router();
 const Submission = require("../models/Submission");
 const Problem = require("../models/Problem");
 const authMiddleware = require("../middleware/auth.middleware");
+const { generateAIReview } = require("../services/aiReview.service");
+
 
 // POST /submissions  (submit code for a problem)
 router.post("/", authMiddleware, async (req, res) => {
@@ -33,13 +35,27 @@ router.post("/", authMiddleware, async (req, res) => {
     };
     // --------------------------------------------
 
+    // -------- AI REVIEW (Gemini, best-effort) --------
+    const aiResponse = await generateAIReview({
+      code,
+      language,
+      problem,
+    });
+    // -----------------------------------------------
+
+
     const submission = new Submission({
       user: req.user.userId,
       problem: problemId,
       language,
       code,
       reviewStatus: "reviewed",
-      reviewResult: mockReview,
+      reviewResult: {
+        mock: mockReview,
+        ai: aiResponse.success ? aiResponse.raw : null,
+        aiStatus: aiResponse.success ? "success" : "failed",
+      },
+
     });
 
     await submission.save();

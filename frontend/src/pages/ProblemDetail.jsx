@@ -103,17 +103,38 @@ function ProblemDetail() {
 
       {review && (
         <div>
-          <h3>Review Feedback</h3>
-          <p><b>Time Complexity:</b> {review.timeComplexity}</p>
-          <p><b>Space Complexity:</b> {review.spaceComplexity}</p>
-          <p><b>Pattern Hint:</b> {review.patternHint}</p>
+          <h3>Rule-Based Review</h3>
+          <p><b>Time Complexity:</b> {review.mock.timeComplexity}</p>
+          <p><b>Space Complexity:</b> {review.mock.spaceComplexity}</p>
+          <p><b>Pattern Hint:</b> {review.mock.patternHint}</p>
+
           <ul>
-            {review.suggestions?.map((s, i) => (
+            {review.mock.suggestions?.map((s, i) => (
               <li key={i}>{s}</li>
             ))}
           </ul>
+
+          <hr />
+
+          <h3>AI Review (Gemini-Flash)</h3>
+          <p style={{ fontSize: "0.9em", color: "gray" }}>
+            AI feedback is experimental and may be approximate.
+          </p>
+
+
+          {review.aiStatus === "success" ? (
+            <pre style={{ whiteSpace: "pre-wrap" }}>
+              {review.ai}
+            </pre>
+          ) : (
+            <p style={{ color: "gray" }}>
+              AI feedback is currently unavailable (free-tier or safety limits).
+              Rule-based review is shown instead.
+            </p>
+          )}
         </div>
       )}
+
       {submissionId && (
         <button
           onClick={() =>
