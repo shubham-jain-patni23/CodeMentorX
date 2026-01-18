@@ -1,53 +1,53 @@
 const express = require("express");
 const router = express.Router();
 const Problem = require("../models/Problem");
-const authMiddleware = require("../middleware/auth.middleware");
-const isAdmin = require("../middleware/isAdmin");
+//const authMiddleware = require("../middleware/auth.middleware");
+//const isAdmin = require("../middleware/isAdmin");
 
 // POST /problems  (add a new problem)
-router.post("/", authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const {
-      title,
-      description,
-      constraints,
-      difficulty,
-      patternTags,
-      thinkPrompts,
-    } = req.body;
+// router.post("/", authMiddleware, isAdmin, async (req, res) => {
+//   try {
+//     const {
+//       title,
+//       description,
+//       constraints,
+//       difficulty,
+//       patternTags,
+//       thinkPrompts,
+//     } = req.body;
 
-    if (
-      !title ||
-      !description ||
-      !constraints ||
-      !difficulty ||
-      !patternTags ||
-      !thinkPrompts
-    ) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+//     if (
+//       !title ||
+//       !description ||
+//       !constraints ||
+//       !difficulty ||
+//       !patternTags ||
+//       !thinkPrompts
+//     ) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
 
-    const problem = new Problem({
-      title,
-      description,
-      constraints,
-      difficulty,
-      patternTags,
-      thinkPrompts,
-      createdBy: req.user.userId,
-    });
+//     const problem = new Problem({
+//       title,
+//       description,
+//       constraints,
+//       difficulty,
+//       patternTags,
+//       thinkPrompts,
+//       createdBy: req.user.userId,
+//     });
 
-    await problem.save();
+//     await problem.save();
 
-    res.status(201).json({
-      message: "Problem added successfully",
-      problem,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+//     res.status(201).json({
+//       message: "Problem added successfully",
+//       problem,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 
 // GET /problems  (fetch all problems)
 router.get("/", async (req, res) => {

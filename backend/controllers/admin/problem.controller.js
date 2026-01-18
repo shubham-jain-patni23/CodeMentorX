@@ -97,6 +97,13 @@ const updateProblem = async (req, res) => {
       });
     }
 
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({
+        message: "No fields provided to update",
+      });
+    }
+
+
     const {
       title,
       description,
@@ -104,7 +111,8 @@ const updateProblem = async (req, res) => {
       difficulty,
       patternTags,
       thinkPrompts,
-    } = req.body;
+    } = req.body || {};
+
 
     if (title !== undefined) problem.title = title;
     if (description !== undefined) problem.description = description;
