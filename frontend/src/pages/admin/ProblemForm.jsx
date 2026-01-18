@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function AdminAddProblem() {
+function ProblemForm({ initialData = {}, onSubmit, submitText }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [constraints, setConstraints] = useState("");
@@ -8,66 +8,47 @@ function AdminAddProblem() {
   const [patternTags, setPatternTags] = useState("");
   const [thinkPrompts, setThinkPrompts] = useState("");
 
-  const handleSubmit = async () => {
-  if (
-    !title ||
-    !description ||
-    !constraints ||
-    !patternTags ||
-    !thinkPrompts
-  ) {
-    alert("All fields are required");
-    return;
-  }
+  useEffect(() => {
+    if (initialData && Object.keys(initialData).length > 0) {
+      setTitle(initialData.title || "");
+      setDescription(initialData.description || "");
+      setConstraints(initialData.constraints || "");
+      setDifficulty(initialData.difficulty || "Easy");
+      setPatternTags((initialData.patternTags || []).join(", "));
+      setThinkPrompts((initialData.thinkPrompts || []).join(", "));
+    }
+  }, [initialData]);
 
-  const token = localStorage.getItem("token");
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch("http://localhost:5000/problems", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        constraints,
-        difficulty,
-        patternTags: patternTags.split(",").map((t) => t.trim()),
-        thinkPrompts: thinkPrompts.split(",").map((p) => p.trim()),
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert(data.message || "Failed to add problem");
+    if (!title || !description || !constraints) {
+      alert("Title, description, and constraints are required");
       return;
     }
 
-    alert("Problem added successfully!");
+    const payload = {
+      title,
+      description,
+      constraints,
+      difficulty,
+      patternTags: patternTags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+      thinkPrompts: thinkPrompts
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean),
+    };
 
-    // Reset form
-    setTitle("");
-    setDescription("");
-    setConstraints("");
-    setDifficulty("Easy");
-    setPatternTags("");
-    setThinkPrompts("");
-  } catch (error) {
-    alert("Server error");
-  }
-};
-
+    onSubmit(payload);
+  };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "700px" }}>
-      <h2>Add New Problem (Admin)</h2>
-
+    <form onSubmit={handleSubmit} style={{ maxWidth: "700px" }}>
       <label>Title</label>
       <input
-        type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         style={{ width: "100%", marginBottom: "10px" }}
@@ -100,7 +81,6 @@ function AdminAddProblem() {
 
       <label>Pattern Tags (comma separated)</label>
       <input
-        type="text"
         value={patternTags}
         onChange={(e) => setPatternTags(e.target.value)}
         style={{ width: "100%", marginBottom: "10px" }}
@@ -108,16 +88,14 @@ function AdminAddProblem() {
 
       <label>Think Prompts (comma separated)</label>
       <input
-        type="text"
         value={thinkPrompts}
         onChange={(e) => setThinkPrompts(e.target.value)}
         style={{ width: "100%", marginBottom: "10px" }}
       />
 
-      <button onClick={handleSubmit}>Add Problem</button>
-
-    </div>
+      <button type="submit">{submitText}</button>
+    </form>
   );
 }
 
-export default AdminAddProblem;
+export default ProblemForm;

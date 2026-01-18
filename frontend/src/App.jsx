@@ -86,8 +86,10 @@ import Problems from "./pages/Problems";
 import ProblemDetail from "./pages/ProblemDetail";
 import Interview from "./pages/Interview";
 import Dashboard from "./pages/UserDashboard";
-import AdminAddProblem from "./pages/AdminAddProblem";
+import AdminProblems from "./pages/admin/AdminProblems";
+import AdminAddProblem from "./pages/admin/AdminAddProblem";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminEditProblem from "./pages/admin/AdminEditProblem";
 
 
 function App() {
@@ -148,13 +150,33 @@ function App() {
 
         {/* Admin routes */}
         <Route
-          path="/admin/add-problem"
+          path="/admin/problems"
+          element={
+            <ProtectedRoute adminOnly>
+              <AdminProblems />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/problems/new"
           element={
             <ProtectedRoute adminOnly>
               <AdminAddProblem />
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/admin/problems/:id/edit"
+          element={
+            <ProtectedRoute adminOnly>
+              <AdminEditProblem />
+            </ProtectedRoute>
+          }
+        />
+
+
         
         <Route
           path="/admin/dashboard"
