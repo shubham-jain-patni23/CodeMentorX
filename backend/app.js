@@ -32,6 +32,9 @@ app.use("/admin/problems", adminProblemRoutes);
 const adminStatsRoutes = require("./routes/admin/stats.routes");
 app.use("/admin/stats", adminStatsRoutes);
 
+const adminReviewRoutes = require("./routes/admin/review.routes");
+app.use("/admin/reviews", adminReviewRoutes);
+
 
 module.exports = app;
 
