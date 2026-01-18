@@ -35,6 +35,9 @@ app.use("/admin/stats", adminStatsRoutes);
 const adminReviewRoutes = require("./routes/admin/review.routes");
 app.use("/admin/reviews", adminReviewRoutes);
 
+const adminHealthRoutes = require("./routes/admin/health.routes");
+app.use("/admin/health", adminHealthRoutes);
+
 
 module.exports = app;
 
