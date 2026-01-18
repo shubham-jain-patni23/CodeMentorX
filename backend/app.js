@@ -29,6 +29,8 @@ app.use("/interview", interviewRoutes);
 const adminProblemRoutes = require("./routes/admin/problem.routes");
 app.use("/admin/problems", adminProblemRoutes);
 
+const adminStatsRoutes = require("./routes/admin/stats.routes");
+app.use("/admin/stats", adminStatsRoutes);
 
 
 module.exports = app;
