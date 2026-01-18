@@ -87,6 +87,47 @@ const getProblemById = async (req, res) => {
   }
 };
 
+const updateProblem = async (req, res) => {
+  try {
+    const problem = await Problem.findById(req.params.id);
+
+    if (!problem) {
+      return res.status(404).json({
+        message: "Problem not found",
+      });
+    }
+
+    const {
+      title,
+      description,
+      constraints,
+      difficulty,
+      patternTags,
+      thinkPrompts,
+    } = req.body;
+
+    if (title !== undefined) problem.title = title;
+    if (description !== undefined) problem.description = description;
+    if (constraints !== undefined) problem.constraints = constraints;
+    if (difficulty !== undefined) problem.difficulty = difficulty;
+    if (patternTags !== undefined) problem.patternTags = patternTags;
+    if (thinkPrompts !== undefined) problem.thinkPrompts = thinkPrompts;
+
+    const updatedProblem = await problem.save();
+
+    return res.json({
+      message: "Problem updated successfully",
+      problem: updatedProblem,
+    });
+  } catch (error) {
+    console.error("Update problem error:", error);
+    return res.status(500).json({
+      message: "Server error while updating problem",
+    });
+  }
+};
+
+
 const deleteProblem = async (req, res) => {
   try {
     const problem = await Problem.findById(req.params.id);
@@ -113,5 +154,7 @@ module.exports = {
   createProblem,
   getAllProblems,
   getProblemById,
+  updateProblem,
   deleteProblem,
 };
+
