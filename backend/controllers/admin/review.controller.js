@@ -7,7 +7,10 @@ const Submission = require("../../models/Submission");
  */
 const getAdminReviewLogs = async (req, res) => {
   try {
-    const reviews = await Submission.find()
+    const reviews = await Submission.find(
+      {},
+      { reviewResult: 0, code: 0 }
+    )
       .populate("user", "email")
       .populate("problem", "title")
       .sort({ createdAt: -1 })
