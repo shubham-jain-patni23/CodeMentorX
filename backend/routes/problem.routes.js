@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Problem = require("../models/Problem");
 const authMiddleware = require("../middleware/auth.middleware");
+const isAdmin = require("../middleware/isAdmin");
 
 // POST /problems  (add a new problem)
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", authMiddleware, isAdmin, async (req, res) => {
   try {
     const {
       title,
