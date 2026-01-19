@@ -3,6 +3,27 @@ const router = express.Router();
 const authMiddleware = require("../middleware/auth.middleware");
 const InterviewResponse = require("../models/InterviewResponse");
 const Submission = require("../models/Submission");
+const {
+  generateInterviewEvaluation,
+} = require("../services/aiReview.service");
+
+// 🔧 Helper to safely parse AI JSON responses
+function extractJSONFromAI(text) {
+  if (!text) return null;
+
+  const cleaned = text
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (error) {
+    console.error("Failed to parse AI JSON:", cleaned);
+    return null;
+  }
+}
+
 
 // POST /interview/submit
 router.post("/submit", authMiddleware, async (req, res) => {
@@ -33,23 +54,36 @@ router.post("/submit", authMiddleware, async (req, res) => {
     }
 
     // -------- RULE-BASED EVALUATION (Phase-1) --------
-    let score = 0;
-    const flags = [];
+    // 🤖 AI INTERVIEW EVALUATION
+    const aiResult = await generateInterviewEvaluation({
+      code: submission.code,
+      language: submission.language,
+      problem: await submission.populate("problem").then(s => s.problem),
+      interviewAnswers: {
+        approachExplanation,
+        timeComplexity,
+        spaceComplexity,
+        optimizationIdeas,
+        edgeCases,
+      },
+    });
 
-    if (approachExplanation.length > 30) score += 25;
-    else flags.push("Approach explanation is too brief");
+    // 🧠 Safe defaults
+    let interviewFeedback = {};
+    let evaluationScore = 0;
+    let flags = [];
 
-    if (timeComplexity.toLowerCase().includes("o(")) score += 20;
-    else flags.push("Time complexity not clearly stated");
+    if (aiResult.success) {
+      const parsed = extractJSONFromAI(aiResult.raw);
 
-    if (spaceComplexity.toLowerCase().includes("o(")) score += 20;
-    else flags.push("Space complexity not clearly stated");
+      if (parsed) {
+        interviewFeedback = parsed;
+        evaluationScore = parsed.score || 0;
+        flags = parsed.flags || [];
+      }
+    }
 
-    if (optimizationIdeas && optimizationIdeas.length > 20) score += 20;
-    else flags.push("Optimization ideas missing or weak");
 
-    if (edgeCases && edgeCases.length > 10) score += 15;
-    else flags.push("Edge cases not discussed");
     // ------------------------------------------------
 
     const interviewResponse = new InterviewResponse({
@@ -61,16 +95,25 @@ router.post("/submit", authMiddleware, async (req, res) => {
       spaceComplexity,
       optimizationIdeas,
       edgeCases,
-      evaluationScore: score,
+      evaluationScore,
       flags,
     });
 
+
     await interviewResponse.save();
 
+    submission.reviewResult = {
+      ...submission.reviewResult,
+      interviewFeedback,
+    };
+
+    await submission.save();
+
+
     res.status(201).json({
-      message: "Interview response submitted",
-      evaluationScore: score,
-      flags,
+      message: "Interview evaluated successfully",
+      evaluationScore,
+      interviewFeedback,
     });
   } catch (error) {
     console.error(error);

@@ -11,13 +11,14 @@ function Interview() {
   const [edgeCases, setEdgeCases] = useState("");
 
   const [score, setScore] = useState(null);
-  const [flags, setFlags] = useState([]);
+  const [feedback, setFeedback] = useState(null);
+
   const [message, setMessage] = useState("");
 
   const token = localStorage.getItem("token");
 
   const handleSubmit = async () => {
-    const response = await fetch("https://codementorx-oh8c.onrender.com/interview/submit", {
+    const response = await fetch("http://localhost:5000/interview/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,11 +38,12 @@ function Interview() {
 
     if (data.evaluationScore !== undefined) {
       setScore(data.evaluationScore);
-      setFlags(data.flags);
+      setFeedback(data.interviewFeedback);
       setMessage("Interview evaluation completed");
     } else {
       setMessage(data.message || "Submission failed");
     }
+
   };
 
   return (
@@ -73,16 +75,35 @@ function Interview() {
           <h3>Interview Feedback</h3>
           <p><b>Score:</b> {score} / 100</p>
 
-          {flags.length > 0 && (
-            <>
-              <p><b>Improvements Needed:</b></p>
-              <ul>
-                {flags.map((f, i) => (
-                  <li key={i}>{f}</li>
-                ))}
-              </ul>
-            </>
-          )}
+          {feedback && (
+  <div>
+    <h3>AI Interview Feedback</h3>
+
+    <p><b>Score:</b> {feedback.score} / 10</p>
+
+    <p><b>Strengths:</b></p>
+    <ul>
+      {feedback.strengths?.map((s, i) => (
+        <li key={i}>{s}</li>
+        ))}
+      </ul>
+
+      <p><b>Weaknesses:</b></p>
+      <ul>
+        {feedback.weaknesses?.map((w, i) => (
+          <li key={i}>{w}</li>
+        ))}
+      </ul>
+
+      <p><b>Improvements:</b></p>
+      <ul>
+        {feedback.improvements?.map((imp, i) => (
+          <li key={i}>{imp}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+
         </div>
       )}
     </div>

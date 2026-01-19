@@ -21,18 +21,7 @@ router.post("/", authMiddleware, async (req, res) => {
     }
 
     // -------- MOCK REVIEW LOGIC (Phase-1) --------
-    const mockReview = {
-      timeComplexity: problem.difficulty === "Easy" ? "O(n)" : "O(n log n)",
-      spaceComplexity: "O(1)",
-      suggestions: [
-        "Try to reduce unnecessary loops.",
-        "Think about optimal data structures.",
-      ],
-      patternHint:
-        problem.patternTags && problem.patternTags.length > 0
-          ? problem.patternTags[0]
-          : "General",
-    };
+    
     // --------------------------------------------
 
     // -------- AI REVIEW (Gemini, best-effort) --------
@@ -51,12 +40,11 @@ router.post("/", authMiddleware, async (req, res) => {
       code,
       reviewStatus: "reviewed",
       reviewResult: {
-        mock: mockReview,
-        ai: aiResponse.success ? aiResponse.raw : null,
         aiStatus: aiResponse.success ? "success" : "failed",
+        ai: aiResponse.success ? aiResponse.raw : null,
       },
-
     });
+
 
     await submission.save();
 
