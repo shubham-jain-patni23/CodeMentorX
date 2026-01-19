@@ -11,7 +11,7 @@ function AdminProblems() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/admin/problems", {
+        const res = await fetch("https://codementorx-oh8c.onrender.com/admin/problems", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +44,7 @@ function AdminProblems() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/admin/problems/${id}`,
+        `https://codementorx-oh8c.onrender.com/admin/problems/${id}`,
         {
           method: "DELETE",
           headers: {

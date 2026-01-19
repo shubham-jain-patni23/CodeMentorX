@@ -11,7 +11,7 @@ function AdminDashboard() {
 
     const fetchStats = async () => {
       try {
-        const res = await fetch("http://localhost:5000/admin/stats", {
+        const res = await fetch("https://codementorx-oh8c.onrender.com/admin/stats", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -25,7 +25,7 @@ function AdminDashboard() {
 
     const fetchHealth = async () => {
       try {
-        const res = await fetch("http://localhost:5000/admin/health", {
+        const res = await fetch("https://codementorx-oh8c.onrender.com/admin/health", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,7 +39,7 @@ function AdminDashboard() {
 
     const fetchReviews = async () => {
       try {
-        const res = await fetch("http://localhost:5000/admin/reviews", {
+        const res = await fetch("https://codementorx-oh8c.onrender.com/admin/reviews", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

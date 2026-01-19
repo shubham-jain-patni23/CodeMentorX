@@ -129,7 +129,7 @@ function AdminAddProblem() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/admin/problems", {
+      const res = await fetch("https://codementorx-oh8c.onrender.com/admin/problems", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

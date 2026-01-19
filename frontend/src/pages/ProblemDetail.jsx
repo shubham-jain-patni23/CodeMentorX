@@ -16,7 +16,7 @@ function ProblemDetail() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/problems/${id}`,
+        `https://codementorx-oh8c.onrender.com/problems/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ function ProblemDetail() {
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("http://localhost:5000/submissions", {
+    const response = await fetch("https://codementorx-oh8c.onrender.com/submissions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -14,7 +14,7 @@ function AdminEditProblem() {
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-          `http://localhost:5000/admin/problems/${id}`,
+          `https://codementorx-oh8c.onrender.com/admin/problems/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function AdminEditProblem() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/admin/problems/${id}`,
+        `https://codementorx-oh8c.onrender.com/admin/problems/${id}`,
         {
           method: "PUT",
           headers: {

@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    fetch("http://localhost:5000/profile", {
+    fetch("https://codementorx-oh8c.onrender.com/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
