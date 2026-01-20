@@ -27,31 +27,180 @@ function Problems() {
     fetchProblems();
   }, []);
 
-  return (
+//   return (
+//     <div>
+//       <h2>DSA Problems</h2>
+
+//       {error && <p>{error}</p>}
+
+//       {problems.map((problem) => (
+//         <div
+//           key={problem._id}
+//           style={{
+//             border: "1px solid #ccc",
+//             marginBottom: "10px",
+//             padding: "10px",
+//           }}
+//         >
+//           <h3>
+//             <Link to={`/problems/${problem._id}`}>{problem.title}</Link>
+//           </h3>
+
+//           <p>Difficulty: {problem.difficulty}</p>
+//           <p>Patterns: {problem.patternTags?.join(", ")}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+    return (
     <div>
-      <h2>DSA Problems</h2>
+      <h1
+        style={{
+          fontSize: "28px",
+          fontWeight: 700,
+          marginBottom: "24px",
+          color: "#0F172A",
+        }}
+      >
+        DSA Problems
+      </h1>
 
-      {error && <p>{error}</p>}
+      {error && (
+        <p style={{ color: "#EF4444", marginBottom: "16px" }}>
+          {error}
+        </p>
+      )}
 
-      {problems.map((problem) => (
+      {problems.length === 0 ? (
+        <p style={{ color: "#64748B" }}>
+          No problems available yet.
+        </p>
+      ) : (
         <div
-          key={problem._id}
           style={{
-            border: "1px solid #ccc",
-            marginBottom: "10px",
-            padding: "10px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "20px",
           }}
         >
-          <h3>
-            <Link to={`/problems/${problem._id}`}>{problem.title}</Link>
-          </h3>
+          {problems.map((problem) => (
+            <Link
+              key={problem._id}
+              to={`/problems/${problem._id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "14px",
+                  padding: "18px",
+                  height: "100%",
+                  border: "1px solid #E5E7EB",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-4px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 6px 16px rgba(0,0,0,0.08)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 6px rgba(0,0,0,0.05)";
+                }}
+              >
+                {/* Title */}
+                <h3
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#0F172A",
+                    marginBottom: "8px",
+                  }}
+                >
+                  {problem.title}
+                </h3>
 
-          <p>Difficulty: {problem.difficulty}</p>
-          <p>Patterns: {problem.patternTags?.join(", ")}</p>
+                {/* Difficulty badge */}
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    padding: "4px 10px",
+                    borderRadius: "999px",
+                    marginBottom: "10px",
+                    backgroundColor:
+                      problem.difficulty === "Easy"
+                        ? "#DCFCE7"
+                        : problem.difficulty === "Medium"
+                        ? "#FEF3C7"
+                        : "#FEE2E2",
+                    color:
+                      problem.difficulty === "Easy"
+                        ? "#166534"
+                        : problem.difficulty === "Medium"
+                        ? "#92400E"
+                        : "#991B1B",
+                  }}
+                >
+                  {problem.difficulty}
+                </span>
+
+                {/* Description preview (optional but nice) */}
+                {problem.description && (
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      fontSize: "14px",
+                      color: "#475569",
+                      lineHeight: "1.4",
+                    }}
+                  >
+                    {problem.description.slice(0, 100)}...
+                  </p>
+                )}
+
+                {/* Pattern tags */}
+                {problem.patternTags?.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "6px",
+                    }}
+                  >
+                    {problem.patternTags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        style={{
+                          fontSize: "12px",
+                          padding: "4px 8px",
+                          borderRadius: "999px",
+                          backgroundColor: "#EEF2FF",
+                          color: "#4F46E5",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Link>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
+
 
 export default Problems;
