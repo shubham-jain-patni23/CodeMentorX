@@ -107,29 +107,30 @@ The platform combines curated problem solving, algorithmic reasoning feedback, a
 
 Create a `.env` file in the backend root:
 
+```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_llm_api_key
-
+```
 
 ---
 
 ## 🚀 Running the Project Locally
 
 ### Backend
-
+```bash
 cd backend
 npm install
 node index.js
-
+```
 
 ### Frontend
-
+```bash
 cd frontend
 npm install
 npm run dev
-
+```
 
 ---
 
