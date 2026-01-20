@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const cardStyle = {
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#F9FAFB",
   borderRadius: "14px",
   padding: "20px",
   border: "1px solid #E5E7EB",

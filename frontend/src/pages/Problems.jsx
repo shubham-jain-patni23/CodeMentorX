@@ -93,27 +93,28 @@ function Problems() {
             >
               <div
                 style={{
-                  backgroundColor: "#FFFFFF",
+                  backgroundColor: "#F9FAFB",
                   borderRadius: "14px",
                   padding: "18px",
-                  height: "100%",
                   border: "1px solid #E5E7EB",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
                   transition: "transform 0.2s, box-shadow 0.2s",
+                  display: "flex",
+                  minHeight: "260px",
+                  flexDirection: "column",
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.transform =
-                    "translateY(-4px)";
+                  e.currentTarget.style.transform = "translateY(-4px)";
                   e.currentTarget.style.boxShadow =
                     "0 6px 16px rgba(0,0,0,0.08)";
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.transform =
-                    "translateY(0)";
+                  e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow =
                     "0 2px 6px rgba(0,0,0,0.05)";
                 }}
               >
+
                 {/* Title */}
                 <h3
                   style={{
@@ -127,30 +128,35 @@ function Problems() {
                 </h3>
 
                 {/* Difficulty badge */}
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    marginBottom: "10px",
-                    backgroundColor:
-                      problem.difficulty === "Easy"
-                        ? "#DCFCE7"
-                        : problem.difficulty === "Medium"
-                        ? "#FEF3C7"
-                        : "#FEE2E2",
-                    color:
-                      problem.difficulty === "Easy"
-                        ? "#166534"
-                        : problem.difficulty === "Medium"
-                        ? "#92400E"
-                        : "#991B1B",
-                  }}
-                >
-                  {problem.difficulty}
-                </span>
+                <div style={{ marginBottom: "10px" }}>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      padding: "4px 10px",
+                      borderRadius: "999px",
+                      backgroundColor:
+                        problem.difficulty === "Easy"
+                          ? "#DCFCE7"
+                          : problem.difficulty === "Medium"
+                          ? "#FEF3C7"
+                          : "#FEE2E2",
+                      color:
+                        problem.difficulty === "Easy"
+                          ? "#166534"
+                          : problem.difficulty === "Medium"
+                          ? "#92400E"
+                          : "#991B1B",
+                      width: "fit-content",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {problem.difficulty}
+                  </span>
+                </div>
+
 
                 {/* Description preview (optional but nice) */}
                 {problem.description && (
