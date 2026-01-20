@@ -1,113 +1,185 @@
-# CodeMentorX
+# 🚀 CodeMentorX — AI-Powered Coding Practice & Review Platform
 
-CodeMentorX is an AI-assisted coding platform designed to help users
-learn how to think, optimize, and explain code — not just write it.
+CodeMentorX is a full-stack web platform designed to help developers practice DSA problems, receive AI-powered code reviews, and simulate real interview evaluations — all in a single, unified learning workflow.
 
-## ❓ Problem Statement
+The platform combines curated problem solving, algorithmic reasoning feedback, and interview-style assessment using modern web technologies and large language models.
 
-Many learners solve DSA problems but struggle with:
-- Understanding *why* their solution works
-- Knowing if their approach is optimal
-- Explaining solutions in interviews
-- Tracking progress across difficulty and patterns
+---
 
-Existing platforms focus on submissions, not learning depth.
+## ✨ Key Features
 
-## 💡 Solution — What is CodeMentorX?
+### 🧩 DSA Practice Playground
+- Curated set of DSA problems with varying difficulty levels  
+- Explicit pattern tagging (e.g., Two Pointers, Hashing, DP)  
+- Think-Before-You-Code prompts to encourage structured problem solving  
 
-CodeMentorX is a full-stack platform that helps learners:
+### 🤖 AI-Powered Code Review
+- Automated analysis of submitted code using LLMs  
+- Detects logical issues, inefficiencies, and edge cases  
+- Provides:
+  - Correctness evaluation  
+  - Time & space complexity analysis  
+  - Optimization and refactoring suggestions  
+  - Conceptual hints when solutions are incorrect  
 
-- Practice DSA problems
-- Get structured rule-based code reviews
-- Receive AI-powered explanations (Gemini Flash)
-- Practice interview-style explanations
-- Track learning progress via analytics dashboard
+### 🎤 Interview Simulation Mode
+- Simulates real technical interviews after code submission  
+- Evaluates:
+  - Approach explanation  
+  - Complexity reasoning  
+  - Code–approach consistency  
+  - Missing edge cases  
+- Generates structured feedback with scores, strengths, weaknesses, and improvement areas  
 
-## ✨ Core Features
+### 📊 Learning Analytics Dashboard
+- User dashboard showing:
+  - Progress over time  
+  - Difficulty distribution  
+  - Pattern coverage  
+  - Attempts per problem  
+- Helps users track learning trends and weak areas  
 
-### 🧩 DSA Playground
-- Curated problems with difficulty & pattern tags
-- Think-Before-You-Code prompts
+### 🛠 Admin Dashboard (Role-Based Access Control)
+- Admin-only features:
+  - Add, edit, and delete problems  
+  - Monitor AI review activity  
+  - View system health and usage statistics  
+- Clean separation between user and admin workflows  
 
-### 🛠 Code Review System
-- Rule-based analysis (time/space complexity, suggestions)
-- AI-assisted explanation using Gemini Flash (best-effort)
+---
 
-### 🎤 Interview Mode
-- Explain approach, complexity, optimizations
-- Automatic scoring & feedback
-
-### 📊 Analytics Dashboard
-- Progress over time
-- Difficulty breakdown
-- Pattern exposure
-- Attempts per problem
-
-### 🔐 Authentication
-- JWT-based authentication
-- Protected routes
-
-## 🧰 Tech Stack
+## 🧠 System Architecture Overview
 
 **Frontend**
-- React (Vite)
-- React Router
+- React.js (Single Page Application)
+- Context-based authentication
+- Protected routes for users and admins
+- Modular component and page structure
+
+**Backend**
+- Node.js + Express.js REST API
+- MongoDB with Mongoose ODM
+- JWT-based authentication
+- Role-based authorization (User / Admin)
+
+**AI Integration**
+- LLM-powered review services
+- Prompt-engineered workflows for:
+  - Code review
+  - Explainability
+  - Interview evaluation
+- Safe response parsing, fallback handling, and API-limit resilience
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**
+- React.js
+- JavaScript
+- HTML / CSS
 
 **Backend**
 - Node.js
 - Express.js
 - MongoDB
-- JWT Authentication
+- Mongoose
 
-**AI**
-- Google Gemini Flash (v1beta, REST API)
+**AI / APIs**
+- LLM APIs (Gemini / ChatGPT)
+- RESTful architecture
 
-**Tools**
-- Git & GitHub
-
-## 🏗 Architecture Overview
-
-- Frontend communicates with backend via REST APIs
-- Backend handles authentication, problem management, submissions, and analytics
-- Rule-based review ensures deterministic feedback
-- AI review is layered on top as best-effort enhancement
-- System gracefully handles AI failures
-
-## ▶️ Run Locally
-
-### Backend
-```bash
-cd backend
-npm install
-node index.js
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## Environment Variables
-```bash
-MONGO_URI=mongo_connection
-JWT_SECRET=secret_token
-GEMINI_API_KEY=my_API_key
-```
+**Auth & Security**
+- JWT authentication
+- Role-based access control
 
 ---
 
-### 8️⃣ Current Status & Future Work (HONEST)
+## 📂 Project Structure (Simplified)
 
-```md
-## 🚀 Current Status
+frontend/
+  ├── src/
+  │   ├── pages/
+  │   ├── components/
+  │   ├── context/
+  │   └── services/
 
-- Phase-1 core features completed
-- AI review integrated (best-effort)
-- Dashboard and interview mode live
+backend/
+  ├── controllers/
+  ├── routes/
+  ├── models/
+  ├── middleware/
+  ├── services/
+  └── index.js
 
-## 🔮 Future Enhancements
-- Admin panel to manage problems
-- Marketplace & credits system
-- Deployment & scaling
+
+---
+
+## 🔐 Authentication & Authorization
+
+- JWT-based authentication
+- Protected routes for logged-in users
+- Admin-only routes protected via middleware
+- Secure separation of user and admin capabilities
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the backend root:
+
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_llm_api_key
+
+
+---
+
+## 🚀 Running the Project Locally
+
+### Backend
+
+cd backend
+npm install
+node index.js
+
+
+### Frontend
+
+cd frontend
+npm install
+npm run dev
+
+
+---
+
+## 📈 Future Enhancements
+
+- Premium AI review modes  
+- Advanced interview scoring rubrics  
+- Problem recommendation system  
+- Performance benchmarking  
+- Marketplace for curated learning packs  
+
+---
+
+## 🎯 Motivation
+
+CodeMentorX was built to bridge the gap between solving problems and understanding how interviewers evaluate solutions, providing learners with structured, AI-assisted feedback at every step of the problem-solving journey.
+
+---
+
+## 👨‍💻 Author
+
+**Shubham Jain**
+
+Built as a resume-grade, interview-ready full-stack project focused on DSA learning, system design, and AI integration.
+
+---
+
+## ⭐ Final Notes
+
+- Designed with scalability and extensibility in mind  
+- Emphasizes clean architecture and separation of concerns  
+- Ideal for showcasing full-stack + AI engineering skills 
