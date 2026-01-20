@@ -92,27 +92,6 @@ The platform combines curated problem solving, algorithmic reasoning feedback, a
 **Auth & Security**
 - JWT authentication
 - Role-based access control
-
----
-
-## 📂 Project Structure (Simplified)
-
-frontend/
-  ├── src/
-  │   ├── pages/
-  │   ├── components/
-  │   ├── context/
-  │   └── services/
-
-backend/
-  ├── controllers/
-  ├── routes/
-  ├── models/
-  ├── middleware/
-  ├── services/
-  └── index.js
-
-
 ---
 
 ## 🔐 Authentication & Authorization
