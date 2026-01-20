@@ -1,4 +1,4 @@
-# 🚀 CodeMentorX — AI-Powered Coding Practice & Review Platform
+# CodeMentorX — AI-Powered Coding Practice & Review Platform
 
 CodeMentorX is a full-stack web platform designed to help developers practice DSA problems, receive AI-powered code reviews, and simulate real interview evaluations — all in a single, unified learning workflow.
 
